@@ -34,7 +34,7 @@
         </Grid.ColumnDefinitions>
 
         <ListView
-            x:Name="CardList"
+            x:Name="DeckList"
             Grid.Row="1"
             Grid.Column="1">
             <ListView.ItemContainerStyle>
@@ -42,12 +42,8 @@
                     <EventSetter Event="MouseLeftButtonUp" Handler="CreateNewCardDeckEvent" />
                 </Style>
             </ListView.ItemContainerStyle>
-
-
-            <ListViewItem>Test</ListViewItem>
-            <ListViewItem>Test</ListViewItem>
             <ListViewItem
-                x:Name="CreateNewCard"
+                x:Name="NewCardDeck"
                 HorizontalAlignment="Center"
                 Foreground="Green">
                 Create new card deck

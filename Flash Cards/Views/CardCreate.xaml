@@ -53,8 +53,9 @@
             Text="{Binding Path=Text, ElementName=CardDeckName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
             TextAlignment="Center" />
         <ListView
+            x:Name="CardList"
             Grid.Row="2"
-            Grid.RowSpan="13"
+            Grid.RowSpan="12"
             Grid.Column="3" />
 
         <TextBlock
@@ -87,36 +88,38 @@
             Grid.Column="1"
             Grid.ColumnSpan="2"
             Width="150"
-            Background="White">
+            Background="White"
+            Click="AddCard_Click">
             Add Card
         </Button>
 
         <TextBlock
-            Grid.Row="13"
+            Grid.Row="10"
             Grid.Column="1"
             VerticalAlignment="Center">
             Deck name
         </TextBlock>
         <TextBox
             Name="CardDeckName"
-            Grid.Row="14"
+            Grid.Row="11"
             Grid.Column="1"
             Grid.ColumnSpan="2" />
 
 
         <Button
             x:Name="AddDeck"
-            Grid.Row="15"
+            Grid.Row="13"
             Grid.Column="1"
             Grid.ColumnSpan="2"
             Width="150"
             Margin="2"
-            Background="White">
+            Background="White"
+            Click="AddDeck_Click">
             Add Deck
         </Button>
         <Button
             x:Name="CancelDeck"
-            Grid.Row="16"
+            Grid.Row="14"
             Grid.Column="1"
             Grid.ColumnSpan="2"
             Width="150"

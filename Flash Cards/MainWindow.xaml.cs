@@ -1,4 +1,5 @@
-﻿using Flash_Cards.ViewModels;
+﻿using Flash_Cards.Model;
+using Flash_Cards.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,24 +22,34 @@ namespace Flash_Cards
     /// </summary>
     public partial class MainWindow : Window
     {
+        private List<CardDeck> decks { get; set; }
+
         public MainWindow()
         {
             InitializeComponent();
+            decks = new List<CardDeck>();
         }
 
         private void CreateNewCardDeckEvent(object sender, MouseButtonEventArgs e)
         {
             var item = sender as ListViewItem;
-            if (item.Name == "CreateNewCard" && item.IsSelected)
+            if (item.Name == "NewCardDeck" && item.IsSelected)
             {
                 DataContext = new CardCreate();
                 (DataContext as CardCreate).CloseThis += CloseDataContextWindow;
+                (DataContext as CardCreate).SaveDeck += AddDeck;
             }
         }
 
         private void CloseDataContextWindow()
         {
             DataContext = null;
+        }
+
+        private void AddDeck(CardDeck deck)
+        {
+            decks.Add(deck);
+            DeckList.Items.Add(deck);
         }
     }
 }

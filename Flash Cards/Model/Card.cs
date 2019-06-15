@@ -25,5 +25,10 @@ namespace Flash_Cards.Model
             this.back = answer;
             favorite = false;
         }
+
+        public override string ToString()
+        {
+            return front + "  |  " + back;
+        }
     }
 }
