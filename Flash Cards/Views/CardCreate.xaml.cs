@@ -58,6 +58,9 @@ namespace Flash_Cards.Views
             //set base datacontext as cardcreate
             _base = DataContext as ViewModels.CardCreate;
 
+            //reset everything
+            hardReset();
+
             if ((this.DataContext as ViewModels.CardCreate)._updating)
                 LoadDeck();
         }
@@ -77,12 +80,7 @@ namespace Flash_Cards.Views
             Back.Text =  ((sender).Content as Card).back;
         }
 
-        private void clearTextBox()
-        {
-            //clear textboxes
-            Front.Text = "";
-            Back.Text = "";
-        }
+        
 
         private void addCard(string front, string back)
         {
@@ -101,6 +99,7 @@ namespace Flash_Cards.Views
         
         private void LoadDeck()
         {
+
             //add cards to list
             foreach (Card card in _base.deck.cards)
                 CardList.Items.Add(card);
@@ -119,6 +118,29 @@ namespace Flash_Cards.Views
             //request to save the deck
             _base.saveThisDeck();
         }
-       
+
+        private void clearTextBox()
+        {
+            //clear textboxes
+            Front.Text = "";
+            Back.Text = "";
+        }
+
+        private void clearList()
+        {
+            CardList.Items.Clear();
+        }
+        
+        private void clearDeckName()
+        {
+            CardDeckName.Text = "";
+        }
+
+        private void hardReset()
+        {
+            clearList();
+            clearDeckName();
+            clearTextBox();
+        }
     }
 }

@@ -10,11 +10,11 @@ none
 false
 DEBUG;TRACE
 C:\Users\MSI\Desktop\GithubRepos\FlashCardUI\Flash Cards\App.xaml
-2-425301814
+3-1984976237
 
-14-581512706
+161072532536
 19-610501337
-MainWindow.xaml;Views\CardCreate.xaml;
+MainWindow.xaml;Views\CardCreate.xaml;Views\CardPractice.xaml;
 
-False
+True
 

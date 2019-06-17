@@ -26,3 +26,5 @@ C:\Users\MSI\Desktop\GithubRepos\FlashCardUI\Flash Cards\bin\Debug\EntityFramewo
 C:\Users\MSI\Desktop\GithubRepos\FlashCardUI\Flash Cards\bin\Debug\System.Data.SQLite.xml
 C:\Users\MSI\Desktop\GithubRepos\FlashCardUI\Flash Cards\bin\Debug\System.Data.SQLite.dll.config
 C:\Users\MSI\Desktop\GithubRepos\FlashCardUI\Flash Cards\obj\Debug\Flash Cards.csproj.CopyComplete
+C:\Users\MSI\Desktop\GithubRepos\FlashCardUI\Flash Cards\obj\Debug\Views\CardPractice.g.cs
+C:\Users\MSI\Desktop\GithubRepos\FlashCardUI\Flash Cards\obj\Debug\Views\CardPractice.baml

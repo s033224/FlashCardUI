@@ -77,8 +77,12 @@
     <Compile Include="Model\Card.cs" />
     <Compile Include="Model\CardDeck.cs" />
     <Compile Include="ViewModels\CardCreate.cs" />
+    <Compile Include="ViewModels\CardPractice.cs" />
     <Compile Include="Views\CardCreate.xaml.cs">
       <DependentUpon>CardCreate.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\CardPractice.xaml.cs">
+      <DependentUpon>CardPractice.xaml</DependentUpon>
     </Compile>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -93,6 +97,10 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="Views\CardCreate.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\CardPractice.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

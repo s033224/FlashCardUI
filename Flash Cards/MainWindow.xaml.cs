@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -22,6 +23,7 @@ namespace Flash_Cards
     /// </summary>
     public partial class MainWindow : Window
     {
+        private bool edit = true;
         private List<CardDeck> decks { get; set; }
 
 
@@ -34,6 +36,9 @@ namespace Flash_Cards
         private void CloseDataContextWindow()
         {
             DataContext = null;
+            DisplayWindow = null;
+            DeckList.Items.Refresh();
+            DeckList.IsEnabled = true;
         }
 
         private void AddDeck(CardDeck deck)
@@ -51,30 +56,66 @@ namespace Flash_Cards
         private void ListViewItem_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
         {
             var item = sender as ListViewItem;
-            if (item.Name == "NewCardDeck" && item.IsSelected)
+            //if editing the item
+            if(edit)
             {
-                openCreateNewDeck();
-            }else
-            {
-                if(DeckList.SelectedItem != null)
+                if (item.Name == "NewCardDeck" && item.IsSelected)
                 {
-                    openEditDeck();
+                    openCreateNewDeck();
                 }
+                else
+                {
+                    if (DeckList.SelectedItem != null)
+                    {
+                        openEditDeck();
+                    }
+                }
+            }
+            //if using the item
+            else
+            {
+                setUpDeckPractice();
             }
         }
 
         private void openEditDeck()
         {
             DataContext = new CardCreate((CardDeck)DeckList.SelectedItem);
-            (DataContext as CardCreate).CloseThis += CloseDataContextWindow;
-            (DataContext as CardCreate).SaveDeck += updateDeck;
+            setUpDeckEditing();
         }
 
         private void openCreateNewDeck()
         {
+            
             DataContext = new CardCreate();
+            setUpDeckEditing();
+        }
+
+        private void setUpDeckEditing()
+        {
+            DeckList.IsEnabled = false;
             (DataContext as CardCreate).CloseThis += CloseDataContextWindow;
             (DataContext as CardCreate).SaveDeck += AddDeck;
+        }
+
+        private void setUpDeckPractice()
+        {
+            DeckList.IsEnabled = false;
+            DataContext = new CardPractice();
+        }
+
+        private void ModeSwitch(object sender, RoutedEventArgs e)
+        {
+            CloseDataContextWindow();
+            edit = !edit;
+
+            if(edit)
+            {
+                ModeSwitching.Content = "MODE: EDIT";
+            }else
+            {
+                ModeSwitching.Content = "MODE: PRACTICE";
+            }
         }
     }
 }
