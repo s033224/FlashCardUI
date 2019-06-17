@@ -73,7 +73,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="Database\DatabaseAccess.cs" />
+    <Compile Include="Database\IDataConnection.cs" />
     <Compile Include="Model\Card.cs" />
     <Compile Include="Model\CardDeck.cs" />
     <Compile Include="ViewModels\CardCreate.cs" />

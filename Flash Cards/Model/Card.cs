@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Flash_Cards.Model
 {
-    class Card
+    public class Card
     {
         public string front { get; set; }
         public string back{ get; set; }
@@ -29,6 +29,15 @@ namespace Flash_Cards.Model
         public override string ToString()
         {
             return front + "  |  " + back;
+        }
+
+        public Card Copy()
+        {
+            Card card = new Card();
+            card.front = front;
+            card.back = back;
+            card.favorite = favorite;
+            return card;
         }
     }
 }

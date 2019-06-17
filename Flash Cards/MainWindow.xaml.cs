@@ -24,21 +24,11 @@ namespace Flash_Cards
     {
         private List<CardDeck> decks { get; set; }
 
+
         public MainWindow()
         {
             InitializeComponent();
             decks = new List<CardDeck>();
-        }
-
-        private void CreateNewCardDeckEvent(object sender, MouseButtonEventArgs e)
-        {
-            var item = sender as ListViewItem;
-            if (item.Name == "NewCardDeck" && item.IsSelected)
-            {
-                DataContext = new CardCreate();
-                (DataContext as CardCreate).CloseThis += CloseDataContextWindow;
-                (DataContext as CardCreate).SaveDeck += AddDeck;
-            }
         }
 
         private void CloseDataContextWindow()
@@ -50,6 +40,41 @@ namespace Flash_Cards
         {
             decks.Add(deck);
             DeckList.Items.Add(deck);
+        }
+
+        private void updateDeck(CardDeck deck)
+        {
+            DeckList.Items.Remove(DeckList.SelectedItem);
+            DeckList.Items.Add(deck);
+        }
+
+        private void ListViewItem_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
+        {
+            var item = sender as ListViewItem;
+            if (item.Name == "NewCardDeck" && item.IsSelected)
+            {
+                openCreateNewDeck();
+            }else
+            {
+                if(DeckList.SelectedItem != null)
+                {
+                    openEditDeck();
+                }
+            }
+        }
+
+        private void openEditDeck()
+        {
+            DataContext = new CardCreate((CardDeck)DeckList.SelectedItem);
+            (DataContext as CardCreate).CloseThis += CloseDataContextWindow;
+            (DataContext as CardCreate).SaveDeck += updateDeck;
+        }
+
+        private void openCreateNewDeck()
+        {
+            DataContext = new CardCreate();
+            (DataContext as CardCreate).CloseThis += CloseDataContextWindow;
+            (DataContext as CardCreate).SaveDeck += AddDeck;
         }
     }
 }

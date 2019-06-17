@@ -1,5 +1,6 @@
 ﻿using Flash_Cards.Model;
 using System;
+using System.Threading;
 using System.Windows;
 using System.Windows.Controls;
 
@@ -10,7 +11,7 @@ namespace Flash_Cards.Views
     /// </summary>
     public partial class CardCreate : UserControl
     {
-        
+        ViewModels.CardCreate _base;
         public CardCreate()
         {
             InitializeComponent();
@@ -21,7 +22,9 @@ namespace Flash_Cards.Views
         {
             if(MessageBox.Show("Are you sure you want to cancel?", "WARNING!", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
             {
-                (this.DataContext as ViewModels.CardCreate).CloseThis.Invoke();
+                if(_base._updating)
+                    _base.deck.Paste(_base._initialDeck);
+                _base.CloseThis.Invoke();
             }
         }
 
@@ -29,25 +32,93 @@ namespace Flash_Cards.Views
         {
             if(!String.IsNullOrEmpty(Front.Text) && !String.IsNullOrEmpty(Back.Text))
             {
-                Card card = new Card(Front.Text, Back.Text);
-                (DataContext as ViewModels.CardCreate).addCard(card);
-                CardList.Items.Add(card);
+                if (CardList.SelectedItems.Count == 0)
+                {
+                    addCard(Front.Text, Back.Text);
+                }else
+                {
+                    updateCard((CardList.SelectedItem as Card), Front.Text, Back.Text);
+                    CardList.Items.Refresh();
+                    CardList.SelectedItem = null;
+                    AddCard.Content = "Add Card";
+                }
+
                 clearTextBox();
             }
         }
 
-
         private void AddDeck_Click(object sender, RoutedEventArgs e)
         {
-            (this.DataContext as ViewModels.CardCreate).deck.name = CardDeckName.Text;
-            (this.DataContext as ViewModels.CardCreate).saveThisDeck();
+            SaveDeck();
         }
+
+        //if editing load deck
+        private void UserControl_Loaded(object sender, RoutedEventArgs e)
+        {
+            //set base datacontext as cardcreate
+            _base = DataContext as ViewModels.CardCreate;
+
+            if ((this.DataContext as ViewModels.CardCreate)._updating)
+                LoadDeck();
+        }
+
+        //prepare card for update
+        private void ListViewItem_MouseLeftButtonUp(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        {
+            prepareCardToUpdate((ListViewItem)sender);
+        }
+
         #endregion
+
+        private void prepareCardToUpdate(ListViewItem sender)
+        {
+            AddCard.Content = "Update";
+            Front.Text = ((sender).Content as Card).front;
+            Back.Text =  ((sender).Content as Card).back;
+        }
 
         private void clearTextBox()
         {
+            //clear textboxes
             Front.Text = "";
             Back.Text = "";
         }
+
+        private void addCard(string front, string back)
+        {
+            //add card to list
+            Card card = new Card(front, back);
+            _base.addCard(card);
+            CardList.Items.Add(card);
+        }
+
+        private void updateCard(Card card, string front, string back)
+        {
+            //Set back and front of a card
+            card.front = front;
+            card.back = back;
+        }
+        
+        private void LoadDeck()
+        {
+            //add cards to list
+            foreach (Card card in _base.deck.cards)
+                CardList.Items.Add(card);
+
+            //set deck name
+            CardDeckName.Text = _base.deck.name;
+
+            //set add deck to update deck
+            AddDeck.Content = "Update deck";
+        }
+
+        private void SaveDeck()
+        {
+            //set deck name
+            _base.deck.name = CardDeckName.Text;
+            //request to save the deck
+            _base.saveThisDeck();
+        }
+       
     }
 }

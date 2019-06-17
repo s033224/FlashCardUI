@@ -16,3 +16,13 @@ C:\Users\MSI\Desktop\GithubRepos\FlashCardUI\Flash Cards\obj\Debug\Flash Cards.p
 C:\Users\MSI\Desktop\GithubRepos\FlashCardUI\Flash Cards\obj\Debug\Views\CardCreate.g.cs
 C:\Users\MSI\Desktop\GithubRepos\FlashCardUI\Flash Cards\obj\Debug\Views\CardCreate.baml
 C:\Users\MSI\Desktop\GithubRepos\FlashCardUI\Flash Cards\obj\Debug\GeneratedInternalTypeHelper.g.cs
+C:\Users\MSI\Desktop\GithubRepos\FlashCardUI\Flash Cards\bin\Debug\EntityFramework.dll
+C:\Users\MSI\Desktop\GithubRepos\FlashCardUI\Flash Cards\bin\Debug\EntityFramework.SqlServer.dll
+C:\Users\MSI\Desktop\GithubRepos\FlashCardUI\Flash Cards\bin\Debug\System.Data.SQLite.dll
+C:\Users\MSI\Desktop\GithubRepos\FlashCardUI\Flash Cards\bin\Debug\System.Data.SQLite.EF6.dll
+C:\Users\MSI\Desktop\GithubRepos\FlashCardUI\Flash Cards\bin\Debug\System.Data.SQLite.Linq.dll
+C:\Users\MSI\Desktop\GithubRepos\FlashCardUI\Flash Cards\bin\Debug\EntityFramework.xml
+C:\Users\MSI\Desktop\GithubRepos\FlashCardUI\Flash Cards\bin\Debug\EntityFramework.SqlServer.xml
+C:\Users\MSI\Desktop\GithubRepos\FlashCardUI\Flash Cards\bin\Debug\System.Data.SQLite.xml
+C:\Users\MSI\Desktop\GithubRepos\FlashCardUI\Flash Cards\bin\Debug\System.Data.SQLite.dll.config
+C:\Users\MSI\Desktop\GithubRepos\FlashCardUI\Flash Cards\obj\Debug\Flash Cards.csproj.CopyComplete
