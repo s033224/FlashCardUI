@@ -51,6 +51,14 @@ namespace Flash_Cards.Model
             cards = deck.cards;
         }
 
+        /// <summary>
+        /// Shuffle the cards
+        /// </summary>
+        public void Shuffle()
+        {
+            cards.OrderBy(a => Guid.NewGuid()).ToList();
+        }
+
 
         public override string ToString()
         {

@@ -66,6 +66,7 @@
             Grid.Row="2"
             Grid.Column="1"
             Margin="3"
+            Background="White"
             Click="ModeSwitch"
             Content="MODE: EDIT" />
     </Grid>

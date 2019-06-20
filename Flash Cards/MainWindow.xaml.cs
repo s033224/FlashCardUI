@@ -81,27 +81,34 @@ namespace Flash_Cards
         private void openEditDeck()
         {
             DataContext = new CardCreate((CardDeck)DeckList.SelectedItem);
-            setUpDeckEditing();
+            setUpDeckEditing(true);
         }
 
         private void openCreateNewDeck()
         {
             
             DataContext = new CardCreate();
-            setUpDeckEditing();
+            setUpDeckEditing(false);
         }
 
-        private void setUpDeckEditing()
+        private void setUpDeckEditing(bool editing)
         {
             DeckList.IsEnabled = false;
             (DataContext as CardCreate).CloseThis += CloseDataContextWindow;
-            (DataContext as CardCreate).SaveDeck += AddDeck;
+            if(editing)
+            {
+                (DataContext as CardCreate).SaveDeck += updateDeck;
+            }else
+            {
+                (DataContext as CardCreate).SaveDeck += AddDeck;
+            }
+            
         }
 
         private void setUpDeckPractice()
         {
             DeckList.IsEnabled = false;
-            DataContext = new CardPractice();
+            DataContext = new CardPractice((CardDeck)DeckList.SelectedItem);
         }
 
         private void ModeSwitch(object sender, RoutedEventArgs e)
