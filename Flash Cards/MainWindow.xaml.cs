@@ -1,4 +1,5 @@
-﻿using Flash_Cards.Model;
+﻿using Flash_Cards.Database;
+using Flash_Cards.Model;
 using Flash_Cards.ViewModels;
 using System;
 using System.Collections.Generic;
@@ -31,6 +32,8 @@ namespace Flash_Cards
         {
             InitializeComponent();
             decks = new List<CardDeck>();
+            IDataConnection data = new DataConnectionImpl();
+            AddDecks(data.GetCardDecks());
         }
 
         private void CloseDataContextWindow()
@@ -41,14 +44,33 @@ namespace Flash_Cards
             DeckList.IsEnabled = true;
         }
 
-        private void AddDeck(CardDeck deck)
+        private void AddDecks(List<CardDeck> temDecks)
         {
-            decks.Add(deck);
+            foreach(CardDeck deck in temDecks)
+            {
+                DeckList.Items.Add(deck);
+            }
+            decks = temDecks;
+        }
+
+        private void AddDeck(CardDeck deck, List<int> cardsToDelete = null)
+        {
+            IDataConnection data = new DataConnectionImpl();
+            decks.Add(data.AddDeck(deck));
+
             DeckList.Items.Add(deck);
         }
 
-        private void updateDeck(CardDeck deck)
+        private void updateDeck(CardDeck deck, List<int> cardsToDelete)
         {
+            IDataConnection data = new DataConnectionImpl();
+            foreach(int cardID in cardsToDelete)
+            {
+                data.DeleteCard(cardID);
+            }
+
+            data.UpdateDeck(deck);
+
             DeckList.Items.Remove(DeckList.SelectedItem);
             DeckList.Items.Add(deck);
         }

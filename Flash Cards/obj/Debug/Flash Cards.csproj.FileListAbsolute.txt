@@ -28,3 +28,7 @@ C:\Users\MSI\Desktop\GithubRepos\FlashCardUI\Flash Cards\bin\Debug\System.Data.S
 C:\Users\MSI\Desktop\GithubRepos\FlashCardUI\Flash Cards\obj\Debug\Flash Cards.csproj.CopyComplete
 C:\Users\MSI\Desktop\GithubRepos\FlashCardUI\Flash Cards\obj\Debug\Views\CardPractice.g.cs
 C:\Users\MSI\Desktop\GithubRepos\FlashCardUI\Flash Cards\obj\Debug\Views\CardPractice.baml
+C:\Users\MSI\Desktop\GithubRepos\FlashCardUI\Flash Cards\bin\Debug\database.db
+C:\Users\MSI\Desktop\GithubRepos\FlashCardUI\Flash Cards\bin\Debug\Dapper.dll
+C:\Users\MSI\Desktop\GithubRepos\FlashCardUI\Flash Cards\bin\Debug\Dapper.xml
+C:\Users\MSI\Desktop\GithubRepos\FlashCardUI\Flash Cards\obj\Debug\Flash Cards_Content.g.cs

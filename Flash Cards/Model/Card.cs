@@ -8,22 +8,21 @@ namespace Flash_Cards.Model
 {
     public class Card
     {
+        public int id { get; set; }
+        public string back { get; set; }
         public string front { get; set; }
-        public string back{ get; set; }
-        public bool favorite { get; set; }
+        
 
         public Card()
         {
             front = "";
             back = "";
-            favorite = false;
         }
 
-        public Card(string text, string answer)
+        public Card(string front, string back)
         {
-            this.front = text;
-            this.back = answer;
-            favorite = false;
+            this.front = front;
+            this.back = back;
         }
 
         public override string ToString()
@@ -36,7 +35,6 @@ namespace Flash_Cards.Model
             Card card = new Card();
             card.front = front;
             card.back = back;
-            card.favorite = favorite;
             return card;
         }
     }

@@ -8,6 +8,7 @@ namespace Flash_Cards.Model
 {
     public class CardDeck
     {
+        public int id { get; set; }
         public string name { get; set; }
         public List<Card> cards { get; set; }
 

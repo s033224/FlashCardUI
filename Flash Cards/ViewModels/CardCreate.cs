@@ -1,5 +1,6 @@
 ﻿using Flash_Cards.Model;
 using System;
+using System.Collections.Generic;
 using System.Windows;
 
 namespace Flash_Cards.ViewModels
@@ -8,17 +9,19 @@ namespace Flash_Cards.ViewModels
     {
         public delegate void closeThis();
         public closeThis CloseThis;
-        public delegate void saveDeck(CardDeck deck);
+        public delegate void saveDeck(CardDeck deck, List<int> cardsToDelete);
         public saveDeck SaveDeck;
 
         public bool _updating { get; set; }
         public CardDeck deck { get; set;}
         public CardDeck _initialDeck { get; set; }
+        public List<int> cardsToDelete { get; set; }
 
         public CardCreate()
         {
             deck = new CardDeck();
             _updating = false;
+            cardsToDelete = new List<int>();
         }
 
         public CardCreate(CardDeck deck)
@@ -39,7 +42,7 @@ namespace Flash_Cards.ViewModels
             {
                 if (!String.IsNullOrEmpty(deck.name))
                 {
-                    SaveDeck.Invoke(deck);
+                    SaveDeck.Invoke(deck, cardsToDelete);
                     CloseThis.Invoke();
                 }
                 else
