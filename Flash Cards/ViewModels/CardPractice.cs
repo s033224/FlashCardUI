@@ -14,6 +14,7 @@ namespace Flash_Cards.ViewModels
         public CardPractice(CardDeck deck)
         {
             this.deck = deck;
+            deck.Shuffle();
         }
     }
 }

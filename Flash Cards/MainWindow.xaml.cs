@@ -64,10 +64,23 @@ namespace Flash_Cards
         private void updateDeck(CardDeck deck, List<int> cardsToDelete)
         {
             IDataConnection data = new DataConnectionImpl();
-            foreach(int cardID in cardsToDelete)
+
+            if(cardsToDelete != null)
             {
-                data.DeleteCard(cardID);
+                foreach (int cardID in cardsToDelete)
+                {
+                    data.DeleteCard(cardID);
+                }
             }
+
+            foreach(Card card in deck.cards)
+            {
+                if(card.id == 0)
+                {
+                    data.AddCard(deck, card);
+                }
+            }
+            
 
             data.UpdateDeck(deck);
 
@@ -96,7 +109,8 @@ namespace Flash_Cards
             //if using the item
             else
             {
-                setUpDeckPractice();
+                if (item.Name != "NewCardDeck")
+                    setUpDeckPractice();
             }
         }
 
