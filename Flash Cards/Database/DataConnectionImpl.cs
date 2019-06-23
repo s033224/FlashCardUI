@@ -98,7 +98,6 @@ namespace Flash_Cards.Database
             return output.FirstOrDefault();
         }
         #endregion
-
         #region DELETE
         public void DeleteCard(int id)
         {
@@ -123,7 +122,6 @@ namespace Flash_Cards.Database
             }
         }
         #endregion
-
         #region UPDATE
         public CardDeck UpdateDeck(CardDeck deck)
         {

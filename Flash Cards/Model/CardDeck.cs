@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace Flash_Cards.Model
 {
+    /// <summary>
+    /// CardDeck : used for storing information about deck and its cards
+    /// </summary>
     public class CardDeck
     {
         public int id { get; set; }
@@ -60,7 +63,10 @@ namespace Flash_Cards.Model
             cards.OrderBy(a => Guid.NewGuid()).ToList();
         }
 
-
+        /// <summary>
+        /// Converts Deck to string
+        /// </summary>
+        /// <returns>Deck name</returns>
         public override string ToString()
         {
             return name;

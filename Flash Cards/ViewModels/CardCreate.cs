@@ -29,6 +29,7 @@ namespace Flash_Cards.ViewModels
             this.deck = deck;
             _initialDeck = deck.Copy();
             _updating = true;
+            cardsToDelete = new List<int>();
         }
 
         public void addCard(Card card)

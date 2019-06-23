@@ -18,6 +18,7 @@ namespace Flash_Cards.Views
         }
 
         #region events
+        //CancelDeck button click: Cancels update/creation of a deck
         private void CancelDeck_Click(object sender, RoutedEventArgs e)
         {
             if(MessageBox.Show("Are you sure you want to cancel?", "WARNING!", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
@@ -28,6 +29,7 @@ namespace Flash_Cards.Views
             }
         }
 
+        //AddCard button click : Adds Card
         private void AddCard_Click(object sender, RoutedEventArgs e)
         {
             if(!String.IsNullOrEmpty(Front.Text) && !String.IsNullOrEmpty(Back.Text))
@@ -47,6 +49,7 @@ namespace Flash_Cards.Views
             }
         }
 
+        //AddDeck button click : Adds deck
         private void AddDeck_Click(object sender, RoutedEventArgs e)
         {
             SaveDeck();
@@ -71,6 +74,12 @@ namespace Flash_Cards.Views
             prepareCardToUpdate((ListViewItem)sender);
         }
 
+        //add card to delete
+        private void ListViewItem_MouseRightButtonUp(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        {
+            removeCard((sender as ContentControl).Content as Card);
+        }
+
         #endregion
 
         private void prepareCardToUpdate(ListViewItem sender)
@@ -79,8 +88,6 @@ namespace Flash_Cards.Views
             Front.Text = ((sender).Content as Card).front;
             Back.Text =  ((sender).Content as Card).back;
         }
-
-        
 
         private void addCard(string front, string back)
         {
@@ -142,5 +149,15 @@ namespace Flash_Cards.Views
             clearDeckName();
             clearTextBox();
         }
+
+        private void removeCard(Card card)
+        {
+            if (MessageBox.Show("Are you sure you want to delete Card?", "WARNING!", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
+            {
+                _base.cardsToDelete.Add(card.id);
+                CardList.Items.Remove(card);
+            }
+        }
+        
     }
 }

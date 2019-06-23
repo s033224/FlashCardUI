@@ -26,11 +26,73 @@ namespace Flash_Cards
     {
         private bool edit = true;
         private List<CardDeck> decks { get; set; }
-
-
+        
         public MainWindow()
         {
             InitializeComponent();
+            RecieveDecksFromDatabase();
+        }
+
+        #region EventHandle
+        //On click of ListViewItem, Edit/Create new deck
+        private void ListViewItem_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
+        {
+            var item = sender as ListViewItem;
+            //if editing the item
+            if (edit)
+            {
+                if (item.Name == "NewCardDeck" && item.IsSelected)
+                {
+                    openCreateNewDeck();
+                }
+                else
+                {
+                    if (DeckList.SelectedItem != null)
+                    {
+                        openEditDeck();
+                    }
+                }
+            }
+            //if using the item
+            else
+            {
+                if (item.Name != "NewCardDeck")
+                    setUpDeckPractice();
+            }
+        }
+
+        //On Right click of ListViewItem, Delete Deck
+        private void ListViewItem_MouseRightButtonUp(object sender, MouseButtonEventArgs e)
+        {
+            if (((sender as ContentControl).Content as CardDeck) != null)
+            {
+                if (MessageBox.Show("Are you sure you want to delete deck?", "WARNING!", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
+                {
+                    DeleteDeck(((sender as ContentControl).Content as CardDeck).id);
+                    RecieveDecksFromDatabase();
+                }
+            }
+        }
+
+        //On Click Button, Switch mode to Edit|Practice
+        private void ModeSwitch(object sender, RoutedEventArgs e)
+        {
+            CloseDataContextWindow();
+            edit = !edit;
+
+            if (edit)
+            {
+                ModeSwitching.Content = "MODE: EDIT";
+            }
+            else
+            {
+                ModeSwitching.Content = "MODE: PRACTICE";
+            }
+        }
+        #endregion
+
+        private void RecieveDecksFromDatabase()
+        {
             decks = new List<CardDeck>();
             IDataConnection data = new DataConnectionImpl();
             AddDecks(data.GetCardDecks());
@@ -40,12 +102,14 @@ namespace Flash_Cards
         {
             DataContext = null;
             DisplayWindow = null;
+            RecieveDecksFromDatabase();
             DeckList.Items.Refresh();
             DeckList.IsEnabled = true;
         }
 
         private void AddDecks(List<CardDeck> temDecks)
         {
+            ClearListView();
             foreach(CardDeck deck in temDecks)
             {
                 DeckList.Items.Add(deck);
@@ -59,6 +123,15 @@ namespace Flash_Cards
             decks.Add(data.AddDeck(deck));
 
             DeckList.Items.Add(deck);
+
+            //update decks from database
+            RecieveDecksFromDatabase();
+        }
+
+        private void DeleteDeck(int id)
+        {
+            IDataConnection data = new DataConnectionImpl();
+            data.DeleteDeck(id);
         }
 
         private void updateDeck(CardDeck deck, List<int> cardsToDelete)
@@ -80,38 +153,10 @@ namespace Flash_Cards
                     data.AddCard(deck, card);
                 }
             }
-            
 
             data.UpdateDeck(deck);
 
-            DeckList.Items.Remove(DeckList.SelectedItem);
-            DeckList.Items.Add(deck);
-        }
-
-        private void ListViewItem_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
-        {
-            var item = sender as ListViewItem;
-            //if editing the item
-            if(edit)
-            {
-                if (item.Name == "NewCardDeck" && item.IsSelected)
-                {
-                    openCreateNewDeck();
-                }
-                else
-                {
-                    if (DeckList.SelectedItem != null)
-                    {
-                        openEditDeck();
-                    }
-                }
-            }
-            //if using the item
-            else
-            {
-                if (item.Name != "NewCardDeck")
-                    setUpDeckPractice();
-            }
+            RecieveDecksFromDatabase();
         }
 
         private void openEditDeck()
@@ -147,18 +192,22 @@ namespace Flash_Cards
             DataContext = new CardPractice((CardDeck)DeckList.SelectedItem);
         }
 
-        private void ModeSwitch(object sender, RoutedEventArgs e)
+        private void ClearListView()
         {
-            CloseDataContextWindow();
-            edit = !edit;
+            DeckList.Items.Clear();
 
-            if(edit)
-            {
-                ModeSwitching.Content = "MODE: EDIT";
-            }else
-            {
-                ModeSwitching.Content = "MODE: PRACTICE";
-            }
+            ListViewItem lvi = new ListViewItem();
+            lvi.Content = "Create new card deck";
+            lvi.Foreground = Brushes.Green;
+            lvi.Name = "NewCardDeck";
+            lvi.HorizontalAlignment = HorizontalAlignment.Center;
+
+            DeckList.Items.Add(lvi);
+
+            DeckList.Items.Refresh();
         }
+
+        
+
     }
 }
